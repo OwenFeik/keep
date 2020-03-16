@@ -1,12 +1,17 @@
-import gkeepapi
 import re
 import difflib
 import sys
+import threading
+import getpass
+
+import gkeepapi
 
 import config
-import session
 import utils
+import sync
 
+password = getpass.getpass('You password > ')
+threading.Thread(target = sync.sync, args = [config.config, password])
 
 if not config.config['email']:
     config.config['email'] = input('Google keep email > ').lower().strip()
